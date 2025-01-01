@@ -19,6 +19,9 @@
 	</bridge-type>
 
 	<bridge-type id="network">
+		<supported-bridge-type-refs>
+			<bridge-type-ref id="cgate"/>
+		</supported-bridge-type-refs>
 		<label>C-Bus Network</label>
 		<description>C-Bus Network bridge</description>
 
