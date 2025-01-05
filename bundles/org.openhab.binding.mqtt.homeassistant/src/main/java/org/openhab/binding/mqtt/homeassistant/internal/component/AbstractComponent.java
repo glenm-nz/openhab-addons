@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2010-2024 Contributors to the openHAB project
+ * Copyright (c) 2010-2025 Contributors to the openHAB project
  *
  * See the NOTICE file(s) distributed with this work for additional
  * information.
@@ -210,7 +210,7 @@ public abstract class AbstractComponent<C extends AbstractChannelConfiguration> 
 
     protected ComponentChannel.Builder buildChannel(String channelID, ComponentChannelType channelType,
             Value valueState, String label, ChannelStateUpdateListener channelStateUpdateListener) {
-        if (groupId == null && newStyleChannels) {
+        if (groupId == null) {
             channelID = componentId;
         }
         return new ComponentChannel.Builder(this, channelID, channelType.getChannelTypeUID(), valueState, label,
@@ -289,7 +289,7 @@ public abstract class AbstractComponent<C extends AbstractChannelConfiguration> 
      */
     public String getName() {
         String result = channelConfiguration.getName();
-        if (result.isBlank()) {
+        if (result != null && result.isBlank()) {
             result = null;
         }
 

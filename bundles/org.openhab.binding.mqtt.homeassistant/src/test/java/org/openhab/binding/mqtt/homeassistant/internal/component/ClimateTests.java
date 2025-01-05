@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2010-2024 Contributors to the openHAB project
+ * Copyright (c) 2010-2025 Contributors to the openHAB project
  *
  * See the NOTICE file(s) distributed with this work for additional
  * information.
@@ -452,10 +452,10 @@ public class ClimateTests extends AbstractComponentTests {
 
         assertChannel(component, Climate.ACTION_CH_ID, "living-room-tion-3s/climate/living-room-tion-3s/action/state",
                 "", "living-room-tion-3s", TextValue.class);
-        assertChannel(component, Climate.CURRENT_TEMPERATURE_CH_ID_DEPRECATED,
+        assertChannel(component, Climate.CURRENT_TEMPERATURE_CH_ID,
                 "living-room-tion-3s/climate/living-room-tion-3s/current_temperature/state", "", "living-room-tion-3s",
                 NumberValue.class);
-        assertChannel(component, Climate.FAN_MODE_CH_ID_DEPRECATED,
+        assertChannel(component, Climate.FAN_MODE_CH_ID,
                 "living-room-tion-3s/climate/living-room-tion-3s/fan_mode/state",
                 "living-room-tion-3s/climate/living-room-tion-3s/fan_mode/command", "living-room-tion-3s",
                 TextValue.class);
