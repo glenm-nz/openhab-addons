@@ -15,6 +15,8 @@ package org.openhab.binding.ipobserver.internal;
 import static org.openhab.binding.ipobserver.internal.IpObserverBindingConstants.SERVER_UPDATE_URL;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -59,6 +61,11 @@ public class IpObserverUpdateReceiver extends HttpServlet {
         if (stationUpdate == null) {
             return;
         }
+        resp.setDateHeader("Date", (Instant.now().toEpochMilli()));
+        resp.setContentType("text/plain; charset=UTF-8");
+        PrintWriter writer = resp.getWriter();
+        writer.print("success\n");
+
         logger.debug("Weather station packet received from {}", req.getRemoteHost());
         for (IpObserverHandler ipObserverHandler : listOfHandlers) {
             ipObserverHandler.processServerQuery(stationUpdate);
