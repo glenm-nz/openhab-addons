@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010-2025 Contributors to the openHAB project
+ * Copyright (c) 2010-2026 Contributors to the openHAB project
  *
  * See the NOTICE file(s) distributed with this work for additional
  * information.
@@ -19,18 +19,18 @@ import org.eclipse.jdt.annotation.NonNullByDefault;
  */
 @NonNullByDefault
 public interface EliteAlarmMessageListener {
-	/**
-	 * The centralized entry point for all structured protocol matches.
-	 */
-	void onMessageReceived(ProtocolMatch match);
+    /**
+     * The centralized entry point for all structured protocol matches.
+     */
+    void onMessageReceived(ProtocolMatch match);
 
-	/**
-	 * Called when the TCP connection state changes.
-	 */
-	void onConnectionStateChanged(boolean online);
+    /**
+     * Called when the TCP connection state changes.
+     */
+    void onConnectionStateChanged(boolean online);
 
-	/**
-	 * Called when the connection is lost unexpectedly.
-	 */
-	void onConnectionLost();
+    /**
+     * Called when the connection is lost unexpectedly.
+     */
+    void onConnectionLost();
 }
