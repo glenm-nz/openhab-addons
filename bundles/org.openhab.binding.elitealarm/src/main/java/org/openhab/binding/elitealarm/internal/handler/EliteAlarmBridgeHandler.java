@@ -305,7 +305,7 @@ public class EliteAlarmBridgeHandler extends BaseBridgeHandler implements EliteA
     private void updateSystemProperty(String key, @Nullable String value) {
         if (value == null)
             return;
-        Map<String, @Nullable String> properties = new HashMap<>(getThing().getProperties());
+        Map<String, String> properties = new HashMap<>(getThing().getProperties());
         properties.put(key, value);
         updateProperties(properties);
     }
