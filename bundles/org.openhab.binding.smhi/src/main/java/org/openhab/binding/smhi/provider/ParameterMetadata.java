@@ -10,17 +10,18 @@
  *
  * SPDX-License-Identifier: EPL-2.0
  */
-package org.openhab.binding.hue.internal.api.dto.clip2;
+package org.openhab.binding.smhi.provider;
+
+import java.math.BigDecimal;
 
 import org.eclipse.jdt.annotation.NonNullByDefault;
-import org.eclipse.jdt.annotation.Nullable;
 
 /**
- * A 'special' DTO for bridge discovery to read the software version from a bridge.
+ * Record class for storing parameter metadata.
  *
- * @author Andrew Fiddian-Green - Initial contribution
+ * @author Anders Alfredsson - Initial contribution
  */
 @NonNullByDefault
-public class BridgeConfig {
-    public @Nullable String swversion;
+public record ParameterMetadata(String name, String shortName, String description, String levelType, BigDecimal level,
+        String unit, BigDecimal missingValue) {
 }
