@@ -142,6 +142,24 @@
         </div>
 
         <div class="section">
+            <h2>Edge Case Testing</h2>
+            <div class="flex-grid">
+                <div class="group">
+                    <button onclick="sendOversizedPacket()" style="background-color: #fd7e14;">Oversized Packet</button>
+                    <p>Sends 5000 bytes to test the 4KB buffer limit.</p>
+                </div>
+                <div class="group">
+                    <button onclick="sendEmptyPacket()" style="background-color: #6c757d;">Empty Packet</button>
+                    <p>Sends only a newline character.</p>
+                </div>
+                <div class="group">
+                    <button onclick="sendUnterminatedPacket()" style="background-color: #17a2b8;">Unterminated Packet</button>
+                    <p>Sends data without a trailing newline.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
             <h2>Server Control</h2>
             <div class="group">
                 <button onclick="exitServer()" style="background-color: #dc3545;">Shutdown Server</button>
@@ -331,6 +349,18 @@
 
         function toggleTimeout() {
             apiPost('/api/toggle_timeout', {});
+        }
+
+        function sendOversizedPacket() {
+            apiPost('/api/send_oversized_packet', {});
+        }
+
+        function sendEmptyPacket() {
+            apiPost('/api/send_empty_packet', {});
+        }
+
+        function sendUnterminatedPacket() {
+            apiPost('/api/send_unterminated_packet', {});
         }
 
         function exitServer() {
