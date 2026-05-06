@@ -1,0 +1,352 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<thing:thing-descriptions bindingId="elitealarm"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:thing="https://openhab.org/schemas/thing-description/v1.0.0"
+	xsi:schemaLocation="https://openhab.org/schemas/thing-description/v1.0.0 https://openhab.org/schemas/thing-description-1.0.0.xsd">
+
+	<bridge-type id="bridge">
+		<label>Elite Alarm Control Panel</label>
+
+		<channels>
+			<channel id="lastMessage" typeId="lastMessage"/>
+		</channels>
+
+		<config-description>
+			<parameter name="host" type="text" required="false">
+				<label>Network Address</label>
+				<context>network-address</context>
+				<description>IP address or hostname for TCP connection</description>
+			</parameter>
+			<parameter name="port" type="integer" required="false">
+				<label>TCP Port</label>
+				<default>9000</default>
+			</parameter>
+
+			<parameter name="username" type="text" required="false">
+				<label>Username</label>
+			</parameter>
+			<parameter name="password" type="text" required="false">
+				<label>Password</label>
+				<context>password</context>
+			</parameter>
+
+			<parameter name="refreshInterval" type="integer" required="true">
+				<label>Refresh Interval</label>
+				<default>60</default>
+				<unitLabel>s</unitLabel>
+			</parameter>
+			<parameter name="reconnectInterval" type="integer" required="true">
+				<label>Reconnect Interval</label>
+				<default>10</default>
+				<unitLabel>s</unitLabel>
+			</parameter>
+		</config-description>
+	</bridge-type>
+
+	<channel-type id="lastMessage">
+		<item-type>String</item-type>
+		<label>Last Protocol Message</label>
+		<description>The last raw message received from the alarm panel</description>
+		<state readOnly="true"/>
+	</channel-type>
+
+	<thing-type id="zone">
+		<supported-bridge-type-refs>
+			<bridge-type-ref id="bridge"/>
+		</supported-bridge-type-refs>
+		<label>Elite Alarm Zone</label>
+		<channels>
+			<channel id="status" typeId="zone-status-type"/>
+			<channel id="unsealed" typeId="alarm-switch">
+				<label>Unsealed</label>
+			</channel>
+			<channel id="alarm" typeId="alarm-switch">
+				<label>Alarm Status</label>
+			</channel>
+			<channel id="tamper" typeId="alarm-switch">
+				<label>Tamper Status</label>
+			</channel>
+			<channel id="bypass" typeId="alarm-switch">
+				<label>Bypass Status</label>
+			</channel>
+			<channel id="trouble" typeId="alarm-switch">
+				<label>Trouble Status</label>
+			</channel>
+			<channel id="battery" typeId="alarm-switch">
+				<label>Battery Status</label>
+			</channel>
+			<channel id="supervise" typeId="alarm-switch">
+				<label>Supervise Status</label>
+			</channel>
+			<channel id="sensor-watch" typeId="alarm-switch">
+				<label>Sensor Watch Status</label>
+			</channel>
+			<channel id="entry-delay" typeId="entry-delay-type">
+				<label>Entry Delay</label>
+			</channel>
+		</channels>
+		<config-description>
+			<parameter name="zoneNumber" type="integer" min="1" max="248" required="true">
+				<label>Zone Number</label>
+			</parameter>
+		</config-description>
+	</thing-type>
+
+	<thing-type id="system">
+		<supported-bridge-type-refs>
+			<bridge-type-ref id="bridge"/>
+		</supported-bridge-type-refs>
+		<label>Elite Alarm Panel Health</label>
+		<channels>
+			<channel id="mains-trouble" typeId="system-trouble-type">
+				<label>Panel Mains Failure</label>
+			</channel>
+			<channel id="battery-trouble" typeId="system-trouble-type">
+				<label>Panel Battery Trouble</label>
+			</channel>
+			<channel id="tamper-trouble" typeId="system-trouble-type">
+				<label>Panel Tamper</label>
+			</channel>
+			<channel id="fuse-trouble" typeId="system-trouble-type">
+				<label>Panel Fuse/Output Failure</label>
+			</channel>
+			<channel id="receiver-trouble" typeId="system-trouble-type">
+				<label>Wireless Receiver Fault</label>
+			</channel>
+			<channel id="dialer-trouble" typeId="system-trouble-type">
+				<label>Dialer Failure</label>
+			</channel>
+			<channel id="line-trouble" typeId="system-trouble-type">
+				<label>Line Failure</label>
+			</channel>
+			<channel id="communication-trouble" typeId="system-trouble-type">
+				<label>Communication Active</label>
+			</channel>
+			<channel id="panic-alarm" typeId="system-trouble-type">
+				<label>Panic Alarm</label>
+			</channel>
+			<channel id="fire-alarm" typeId="system-trouble-type">
+				<label>Fire Alarm</label>
+			</channel>
+			<channel id="medical-alarm" typeId="system-trouble-type">
+				<label>Medical Alarm</label>
+			</channel>
+			<channel id="pendant-battery-trouble" typeId="system-trouble-type">
+				<label>Pendant Battery Trouble</label>
+			</channel>
+			<channel id="raw-command" typeId="raw-command-type">
+				<label>Raw Command</label>
+			</channel>
+		</channels>
+	</thing-type>
+
+	<thing-type id="area">
+		<supported-bridge-type-refs>
+			<bridge-type-ref id="bridge"/>
+		</supported-bridge-type-refs>
+		<label>Alarm Area (Partition)</label>
+		<channels>
+			<channel id="armed-away" typeId="armed-state-type">
+				<label>Armed Away</label>
+			</channel>
+			<channel id="armed-stay" typeId="armed-state-type">
+				<label>Armed Stay</label>
+			</channel>
+			<channel id="alarm" typeId="system-trouble-type">
+				<label>Area Alarm</label>
+			</channel>
+			<channel id="ready" typeId="system-trouble-type">
+				<label>Ready to Arm</label>
+			</channel>
+			<channel id="area-status" typeId="area-status-text-type"/>
+			<channel id="last-user" typeId="last-user-text-type"/>
+			<channel id="exit-delay" typeId="system-trouble-type">
+				<label>Exit Delay Active</label>
+			</channel>
+		</channels>
+		<config-description>
+			<parameter name="areaNumber" type="integer" min="1" max="8" required="true">
+				<label>Area Number</label>
+			</parameter>
+		</config-description>
+	</thing-type>
+
+	<thing-type id="output">
+		<supported-bridge-type-refs>
+			<bridge-type-ref id="bridge"/>
+		</supported-bridge-type-refs>
+		<label>Elite Alarm Output</label>
+		<channels>
+			<channel id="state" typeId="output-state-type"/>
+		</channels>
+		<config-description>
+			<parameter name="outputNumber" type="integer" min="1" max="32" required="true">
+				<label>Output Number</label>
+			</parameter>
+		</config-description>
+	</thing-type>
+
+	<!-- Input Expander (1-30) -->
+	<thing-type id="input_expander">
+		<supported-bridge-type-refs>
+			<bridge-type-ref id="bridge"/>
+		</supported-bridge-type-refs>
+		<label>Elite Alarm Input Expander</label>
+		<description>Expands the system with additional inputs.</description>
+		<channels>
+			<channel id="mains-trouble" typeId="system-trouble-type">
+				<label>Input Expander Mains Failure</label>
+			</channel>
+			<channel id="battery-trouble" typeId="system-trouble-type">
+				<label>Input Expander Battery Trouble</label>
+			</channel>
+			<channel id="tamper-trouble" typeId="system-trouble-type">
+				<label>Input Expander Tamper</label>
+			</channel>
+			<channel id="fuse-trouble" typeId="system-trouble-type">
+				<label>Input Expander Fuse Failure</label>
+			</channel>
+		</channels>
+		<config-description>
+			<parameter name="expanderNumber" type="integer" min="1" max="30" required="true">
+				<label>Expander Number</label>
+				<description>The ID of the input expander (Range: 1-30).</description>
+			</parameter>
+		</config-description>
+	</thing-type>
+
+	<!-- Output Expander (1-8) -->
+	<thing-type id="output_expander">
+		<supported-bridge-type-refs>
+			<bridge-type-ref id="bridge"/>
+		</supported-bridge-type-refs>
+		<label>Elite Alarm Output Expander</label>
+		<description>Expands the system with additional outputs.</description>
+		<channels>
+			<channel id="mains-trouble" typeId="system-trouble-type">
+				<label>Output Expander Mains Failure</label>
+			</channel>
+			<channel id="battery-trouble" typeId="system-trouble-type">
+				<label>Output Expander Battery Trouble</label>
+			</channel>
+			<channel id="tamper-trouble" typeId="system-trouble-type">
+				<label>Output Expander Tamper</label>
+			</channel>
+			<channel id="fuse-trouble" typeId="system-trouble-type">
+				<label>Output Expander Fuse Failure</label>
+			</channel>
+		</channels>
+		<config-description>
+			<parameter name="expanderNumber" type="integer" min="1" max="8" required="true">
+				<label>Expander Number</label>
+				<description>The ID of the output expander (Range: 1-8).</description>
+			</parameter>
+		</config-description>
+	</thing-type>
+
+	<!-- Prox Expander (1-32) -->
+	<thing-type id="prox_expander">
+		<supported-bridge-type-refs>
+			<bridge-type-ref id="bridge"/>
+		</supported-bridge-type-refs>
+		<label>Elite Alarm Prox Expander</label>
+		<description>Proximity reader expander.</description>
+		<channels>
+			<channel id="mains-trouble" typeId="system-trouble-type">
+				<label>Prox Expander Mains Failure</label>
+			</channel>
+			<channel id="battery-trouble" typeId="system-trouble-type">
+				<label>Prox Expander Battery Trouble</label>
+			</channel>
+			<channel id="tamper-trouble" typeId="system-trouble-type">
+				<label>Prox Expander Tamper</label>
+			</channel>
+			<channel id="fuse-trouble" typeId="system-trouble-type">
+				<label>Prox Expander Fuse Failure</label>
+			</channel>
+		</channels>
+		<config-description>
+			<parameter name="expanderNumber" type="integer" min="1" max="32" required="true">
+				<label>Expander Number</label>
+				<description>The ID of the prox expander (Range: 1-32).</description>
+			</parameter>
+		</config-description>
+	</thing-type>
+
+	<channel-type id="raw-command-type">
+		<item-type>String</item-type>
+		<label>Raw Command</label>
+		<description>The last raw command received from the alarm panel</description>
+		<state readOnly="true"/>
+	</channel-type>
+
+	<channel-type id="zone-status-type">
+		<item-type>String</item-type>
+		<label>Zone Status Text</label>
+		<state readOnly="true">
+			<options>
+				<option value="SEALED">Sealed</option>
+				<option value="UNSEALED">Unsealed</option>
+				<option value="TAMPER">Tamper</option>
+				<option value="TAMPER RESTORE">Tamper Restore</option>
+				<option value="ALARM">In Alarm</option>
+				<option value="ALARM RESTORE">Alarm Restore</option>
+			</options>
+		</state>
+	</channel-type>
+
+	<channel-type id="system-trouble-type">
+		<item-type>Switch</item-type>
+		<label>Trouble Status</label>
+		<state readOnly="true"/>
+	</channel-type>
+
+	<channel-type id="armed-state-type">
+		<item-type>Switch</item-type>
+		<label>Armed Status</label>
+		<state readOnly="true"/>
+	</channel-type>
+
+	<channel-type id="output-state-type">
+		<item-type>Switch</item-type>
+		<label>Output State</label>
+		<state readOnly="false"/>
+	</channel-type>
+
+	<channel-type id="alarm-switch">
+		<item-type>Switch</item-type>
+		<label>Alarm Component</label>
+		<state readOnly="true"/>
+	</channel-type>
+
+	<channel-type id="area-status-text-type">
+		<item-type>String</item-type>
+		<label>Area Status Text</label>
+		<description>The current summary state of the partition</description>
+		<state readOnly="true">
+			<options>
+				<option value="AWAY">Away Armed</option>
+				<option value="STAY">Stay Armed</option>
+				<option value="DISARMED">Disarmed</option>
+				<option value="ALARM">In Alarm</option>
+				<option value="READY">Ready</option>
+				<option value="NOT_READY">Not Ready</option>
+			</options>
+		</state>
+	</channel-type>
+
+	<channel-type id="last-user-text-type">
+		<item-type>String</item-type>
+		<label>Last User</label>
+		<description>The last user who interacted with the area</description>
+		<state readOnly="true"/>
+	</channel-type>
+
+	<channel-type id="entry-delay-type">
+		<item-type>String</item-type>
+		<label>Entry Delay</label>
+		<description>The entry delay time in seconds</description>
+		<state readOnly="true"/>
+	</channel-type>
+
+</thing:thing-descriptions>

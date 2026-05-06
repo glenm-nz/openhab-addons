@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<addon:addon id="elitealarm" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:addon="https://openhab.org/schemas/addon/v1.0.0"
+	xsi:schemaLocation="https://openhab.org/schemas/addon/v1.0.0 https://openhab.org/schemas/addon-1.0.0.xsd">
+
+	<type>binding</type>
+	<name>Elite Alarm Binding</name>
+	<description>This binding supports Arrowhead ECi Elite Alarm panels via a TCP/IP network interface. It provides support
+		for monitoring zones, areas, and controlling outputs.</description>
+	<connection>local</connection>
+
+</addon:addon>
