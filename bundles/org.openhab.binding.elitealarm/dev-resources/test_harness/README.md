@@ -17,7 +17,7 @@ Navigate to this directory in your terminal and run the server:
 python3 server.py
 ```
 
-This will start the TCP server on port 9000 and the web server on port 8080.
+This will start the TCP server on port 9000 and the web server on port 8081.
 
 ### Configure the Binding
 
