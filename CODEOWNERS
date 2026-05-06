@@ -107,6 +107,7 @@
 /bundles/org.openhab.binding.ekey/ @hmerk
 /bundles/org.openhab.binding.electroluxappliance/ @jannegpriv
 /bundles/org.openhab.binding.elerotransmitterstick/ @vbier
+/bundles/org.openhab.binding.elitealarm/ @glenm-nz
 /bundles/org.openhab.binding.elroconnects/ @mherwege
 /bundles/org.openhab.binding.emby/ @volfan6415
 /bundles/org.openhab.binding.emotiva/ @espenaf
