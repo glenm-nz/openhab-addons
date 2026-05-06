@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010-2025 Contributors to the openHAB project
+ * Copyright (c) 2010-2026 Contributors to the openHAB project
  *
  * See the NOTICE file(s) distributed with this work for additional
  * information.
@@ -45,24 +45,24 @@ import org.osgi.service.component.annotations.Component;
 @Component(configurationPid = "binding.elitealarm", service = ThingHandlerFactory.class)
 public class EliteAlarmHandlerFactory extends BaseThingHandlerFactory {
 
-	@Override
-	public boolean supportsThingType(ThingTypeUID thingTypeUID) {
-		return EliteAlarmBindingConstants.SUPPORTED_THING_TYPES.contains(thingTypeUID);
-	}
+    @Override
+    public boolean supportsThingType(ThingTypeUID thingTypeUID) {
+        return EliteAlarmBindingConstants.SUPPORTED_THING_TYPES.contains(thingTypeUID);
+    }
 
-	@Override
-	protected @Nullable ThingHandler createHandler(Thing thing) {
-		ThingTypeUID thingTypeUID = thing.getThingTypeUID();
+    @Override
+    protected @Nullable ThingHandler createHandler(Thing thing) {
+        ThingTypeUID thingTypeUID = thing.getThingTypeUID();
 
-		if (THING_TYPE_BRIDGE.equals(thingTypeUID)) {
-			return new EliteAlarmBridgeHandler((Bridge) thing);
-		} else if (THING_TYPE_ZONE.equals(thingTypeUID) || THING_TYPE_AREA.equals(thingTypeUID)
-				|| THING_TYPE_OUTPUT.equals(thingTypeUID) || THING_TYPE_SYSTEM.equals(thingTypeUID)
-				|| THING_TYPE_INPUT_EXPANDER.equals(thingTypeUID) || THING_TYPE_OUTPUT_EXPANDER.equals(thingTypeUID)
-				|| THING_TYPE_PROX_EXPANDER.equals(thingTypeUID)) {
-			return new EliteAlarmThingHandler(thing);
-		}
+        if (THING_TYPE_BRIDGE.equals(thingTypeUID)) {
+            return new EliteAlarmBridgeHandler((Bridge) thing);
+        } else if (THING_TYPE_ZONE.equals(thingTypeUID) || THING_TYPE_AREA.equals(thingTypeUID)
+                || THING_TYPE_OUTPUT.equals(thingTypeUID) || THING_TYPE_SYSTEM.equals(thingTypeUID)
+                || THING_TYPE_INPUT_EXPANDER.equals(thingTypeUID) || THING_TYPE_OUTPUT_EXPANDER.equals(thingTypeUID)
+                || THING_TYPE_PROX_EXPANDER.equals(thingTypeUID)) {
+            return new EliteAlarmThingHandler(thing);
+        }
 
-		return null;
-	}
+        return null;
+    }
 }
