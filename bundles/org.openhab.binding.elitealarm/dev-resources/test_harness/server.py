@@ -303,6 +303,46 @@ class ControlHandler(http.server.SimpleHTTPRequestHandler):
                 alarm_state["timeout_active"] = not alarm_state["timeout_active"]
                 response['message'] = f"Timeout simulation set to {alarm_state['timeout_active']}"
 
+            elif self.path == "/api/send_oversized_packet":
+                if client_socket:
+                    try:
+                        # Send 5000 characters without a newline to trip the 4096 safety valve
+                        client_socket.sendall(("X" * 5000).encode('utf-8'))
+                        alarm_state["command_log"].append({"direction": "sent", "command": "<OVERSIZED DATA>"})
+                        response['message'] = "Sent oversized packet (no newline)."
+                    except Exception as e:
+                        response['status'] = 'error'
+                        response['message'] = str(e)
+                else:
+                    response['status'] = "error"
+                    response['message'] = "No client connected."
+
+            elif self.path == "/api/send_empty_packet":
+                if client_socket:
+                    try:
+                        client_socket.sendall(b"\n")
+                        alarm_state["command_log"].append({"direction": "sent", "command": "<EMPTY PACKET>"})
+                        response['message'] = "Sent empty packet (only newline)."
+                    except Exception as e:
+                        response['status'] = 'error'
+                        response['message'] = str(e)
+                else:
+                    response['status'] = "error"
+                    response['message'] = "No client connected."
+
+            elif self.path == "/api/send_unterminated_packet":
+                if client_socket:
+                    try:
+                        client_socket.sendall(b"ZO1")
+                        alarm_state["command_log"].append({"direction": "sent", "command": "ZO1 (No Newline)"})
+                        response['message'] = "Sent unterminated packet."
+                    except Exception as e:
+                        response['status'] = 'error'
+                        response['message'] = str(e)
+                else:
+                    response['status'] = "error"
+                    response['message'] = "No client connected."
+
             elif self.path == "/api/exit":
                 response['message'] = "Server shutting down"
                 shutdown_flag.set()

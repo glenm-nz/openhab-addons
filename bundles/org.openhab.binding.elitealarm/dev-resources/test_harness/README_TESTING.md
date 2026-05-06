@@ -47,6 +47,7 @@ From this page, you can:
 - Set the authentication mode (no auth or username/password).
 - Simulate system status changes (mains fail, battery fail, etc.).
 - Simulate zone status changes (sealed, unsealed, alarm, tamper).
+- Perform Edge Case/Negative testing (Oversized packet, empty packet, unterminated packet).
 
 Any changes you make in the web UI will be sent to the openHAB binding over the TCP connection.
 Open the Main UI page in OpenHAB "Elite Alarm Dashboard" created by `rebuild_elitealarm.py` and you can then view the test harness and OpenHAB states side-by-side as follows:
