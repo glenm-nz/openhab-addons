@@ -9,9 +9,22 @@ It consists of two parts:
 
 ## How to Use
 
+### Setup the Environment
+
+Use `rebuild_elitealarm.py` to setup corresponding things and items in a test instance of OpenHAB, for use in conjunction with `server.py`
+
+Modify `config.json` to suit your local environment. You will need to generate a API token within the OpenHAB application. Example config as follows:
+
+```json
+{
+    "OH_URL": "http://localhost:8080/rest",
+    "API_TOKEN": "oh.setup1.XYQAxFVVrrP7oCK0VyZGzfbe91W4KX1V6GrfDpZTRWRKBYWgJZNrOYm64eiT0zcd5qaPOLIAn10cREjgWCw"
+}
+```
+
 ### Run the Server
 
-Navigate to this directory in your terminal and run the server:
+Navigate to the `test_harness` directory in your terminal and run the server:
 
 ```bash
 python3 server.py
@@ -36,6 +49,9 @@ From this page, you can:
 - Simulate zone status changes (sealed, unsealed, alarm, tamper).
 
 Any changes you make in the web UI will be sent to the openHAB binding over the TCP connection.
+Open the Main UI page in OpenHAB "Elite Alarm Dashboard" created by `rebuild_elitealarm.py` and you can then view the test harness and OpenHAB states side-by-side as follows:
+
+![Elite Alarm Dashboard comparison](eliteAlarmTestHarness.png)
 
 ## Extending the Harness
 
