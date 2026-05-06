@@ -8,7 +8,7 @@ The EliteAlarm binding integrates openHAB with EliteAlarm security panels, enabl
 
 Key features include:
 
-- Real-time status updates for zones, areas, and system health.
+- Real-time status updates for zones, areas, system health, and hardware expander modules.
 - Control of outputs and arming/disarming of areas.
 - A bridge-and-thing architecture for representing the panel and its components.
 - Automatic reconnection handling to ensure a stable connection.
@@ -29,7 +29,7 @@ The binding is designed around a clear separation of concerns, with distinct com
   - Handling commands sent from openHAB channels and translating them into protocol commands.
   - Managing the online/offline status of child things.
 
-- **`EliteAlarmThingHandler`**: This handler manages individual `thing` types like zones, areas, outputs, and the system itself. It is a lightweight handler that primarily forwards commands to the bridge and receives state updates from it. It also performs configuration validation for the thing it manages.
+- **`EliteAlarmThingHandler`**: This handler manages individual `thing` types like zones, areas, outputs, hardware expanders (input, output, and proximity), and the system itself. It is a lightweight handler that primarily forwards commands to the bridge and receives state updates from it. It also performs configuration validation for the thing it manages.
 
 - **`EliteAlarmNettyClient`**: A TCP client built using the Netty framework. It handles the low-level details of network communication:
   - Establishing a socket connection to the alarm panel.
@@ -142,7 +142,7 @@ The binding reflects the state of the alarm panel in the openHAB thing model.
 
 - A protocol message arrives and is parsed into a `ProtocolMatch` object by the `EliteAlarmHandler` and `EliteAlarmProtocolRegistry`.
 - The `EliteAlarmBridgeHandler` receives this object in its `onMessageReceived` method.
-- A `switch` statement on the `match.subsystem` routes the match to a dedicated handler method (e.g., `handleZoneUpdate`, `handleAreaUpdate`).
+- A `switch` statement on the `match.subsystem` routes the match to a dedicated handler method (e.g., `handleZoneUpdate`, `handleAreaUpdate`, `handleExpanderUpdate`).
 - These methods use the `updateChildThing` helper, which finds the correct child thing based on its type and configuration (e.g., finding the `zone` thing where `zoneNumber` matches the number from the protocol message).
 - Once the correct thing is found, `updateChildChannel` is called, which in turn calls the `updateState` method on the `EliteAlarmThingHandler` to update the openHAB channel state.
 

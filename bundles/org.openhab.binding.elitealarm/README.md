@@ -4,10 +4,6 @@ This binding integrates the EliteAlarm security system with openHAB.
 It allows openHAB to monitor and control EliteAlarm panels by communicating with them over a TCP connection.
 The binding supports monitoring zones, system status, and partitions (areas), as well as controlling outputs.
 
-> [!IMPORTANT]
-> This binding relies on the `netty` library. Please either install another add-on binding using this dependency (e.g. `mqtt`)
-> or provision netty via the karaf console.
-
 ## Supported Things
 
 This binding supports the following thing types:
