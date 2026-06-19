@@ -69,6 +69,7 @@ import org.openhab.binding.shelly.internal.api2.Shelly2ApiJsonDTO.Shelly2DeviceC
 import org.openhab.binding.shelly.internal.api2.Shelly2ApiJsonDTO.Shelly2DeviceConfig.Shelly2DevConfigPm1;
 import org.openhab.binding.shelly.internal.api2.Shelly2ApiJsonDTO.Shelly2DeviceConfig.Shelly2DevConfigSwitch;
 import org.openhab.binding.shelly.internal.api2.Shelly2ApiJsonDTO.Shelly2DeviceConfig.Shelly2DeviceConfigSta;
+import org.openhab.binding.shelly.internal.api2.Shelly2ApiJsonDTO.Shelly2DeviceConfig.Shelly2GetConfigLight;
 import org.openhab.binding.shelly.internal.api2.Shelly2ApiJsonDTO.Shelly2DeviceConfig.Shelly2GetConfigResult;
 import org.openhab.binding.shelly.internal.api2.Shelly2ApiJsonDTO.Shelly2DeviceConfig.ShellyDeviceConfigCB;
 import org.openhab.binding.shelly.internal.api2.Shelly2ApiJsonDTO.Shelly2DeviceSettings;
@@ -355,11 +356,16 @@ public class Shelly2ApiClient extends ShellyHttpClient implements ShellyDiscover
         }
 
         if (profile.isDimmer) {
+            // A dimmer exposes one light component per dimming channel (light:0, light:1, ...).
+            // Multi-channel dimmers like the Pro Dimmer 2PM report more than one light component.
+            int numDimmers = Math.max(1, countDimmers(dc));
             ArrayList<@Nullable ShellySettingsDimmer> dimmers = new ArrayList<>();
-            dimmers.add(new ShellySettingsDimmer());
-            profile.settings.dimmers = dimmers;
             profile.status.dimmers = new ArrayList<>();
-            profile.status.dimmers.add(new ShellyShortLightStatus());
+            for (int i = 0; i < numDimmers; i++) {
+                dimmers.add(new ShellySettingsDimmer());
+                profile.status.dimmers.add(new ShellyShortLightStatus());
+            }
+            profile.settings.dimmers = dimmers;
             fillDimmerSettings(profile, dc);
         }
         profile.status.lights = profile.isBulb ? new ArrayList<>() : null;
@@ -542,6 +548,7 @@ public class Shelly2ApiClient extends ShellyHttpClient implements ShellyDiscover
         updated |= updateEmStatus(11, status, result.em11, channelUpdate);
         updated |= updateRollerStatus(0, status, result.cover0, channelUpdate);
         updated |= updateDimmerStatus(0, status, result.light0, channelUpdate);
+        updated |= updateDimmerStatus(1, status, result.light1, channelUpdate);
         updated |= updateRGBWStatus(0, status, result.rgbw0, channelUpdate);
         if (channelUpdate) {
             updated |= ShellyComponents.updateMeters(getThing(), status);
@@ -1024,18 +1031,37 @@ public class Shelly2ApiClient extends ShellyHttpClient implements ShellyDiscover
     }
 
     protected void fillDimmerSettings(ShellyDeviceProfile profile, Shelly2GetConfigResult dc) {
-        if (!profile.isDimmer || dc.light0 == null) {
+        List<ShellySettingsDimmer> dimmers = profile.settings.dimmers;
+        if (!profile.isDimmer || dimmers == null) {
             return;
         }
+        // One light component per dimming channel (light:0, light:1, ...); add more entries here for future
+        // dimmers with additional channels.
+        fillDimmerSettings(dimmers, 0, dc.light0);
+        fillDimmerSettings(dimmers, 1, dc.light1);
+    }
 
-        List<ShellySettingsDimmer> dimmers = profile.settings.dimmers;
-        if (dimmers != null) {
-            ShellySettingsDimmer ds = dimmers.get(0);
-            ds.autoOn = dc.light0.autoOnDelay;
-            ds.autoOff = dc.light0.autoOffDelay;
-            ds.name = dc.light0.name;
-            dimmers.set(0, ds);
+    private static void fillDimmerSettings(List<ShellySettingsDimmer> dimmers, int idx,
+            @Nullable Shelly2GetConfigLight light) {
+        if (light == null || idx >= dimmers.size()) {
+            return;
         }
+        ShellySettingsDimmer ds = dimmers.get(idx);
+        ds.autoOn = light.autoOnDelay;
+        ds.autoOff = light.autoOffDelay;
+        ds.name = light.name;
+        dimmers.set(idx, ds);
+    }
+
+    private static int countDimmers(Shelly2GetConfigResult dc) {
+        int numDimmers = 0;
+        if (dc.light0 != null) {
+            numDimmers++;
+        }
+        if (dc.light1 != null) {
+            numDimmers++;
+        }
+        return numDimmers;
     }
 
     protected void fillRgbwSettings(ShellyDeviceProfile profile, Shelly2GetConfigResult dc) {
@@ -1114,20 +1140,28 @@ public class Shelly2ApiClient extends ShellyHttpClient implements ShellyDiscover
         }
 
         if (ds.temperature100 != null) {
-            if (status.extTemperature == null) {
-                status.extTemperature = new ShellyExtTemperature();
+            ShellyExtTemperature extTemp = status.extTemperature;
+            if (extTemp == null) {
+                extTemp = new ShellyExtTemperature();
+                status.extTemperature = extTemp;
             }
-            status.extTemperature.sensor1 = updateExtTempSensor(ds.temperature100);
-            status.extTemperature.sensor2 = updateExtTempSensor(ds.temperature101);
-            status.extTemperature.sensor3 = updateExtTempSensor(ds.temperature102);
-            status.extTemperature.sensor4 = updateExtTempSensor(ds.temperature103);
-            status.extTemperature.sensor5 = updateExtTempSensor(ds.temperature104);
+            extTemp.sensor1 = updateExtTempSensor(ds.temperature100);
+            extTemp.sensor2 = updateExtTempSensor(ds.temperature101);
+            extTemp.sensor3 = updateExtTempSensor(ds.temperature102);
+            extTemp.sensor4 = updateExtTempSensor(ds.temperature103);
+            extTemp.sensor5 = updateExtTempSensor(ds.temperature104);
         }
         if (ds.humidity100 != null) {
-            status.extHumidity = new ShellyExtHumidity(ds.humidity100.rh);
+            Double rh = ds.humidity100.rh;
+            if (rh != null) {
+                status.extHumidity = new ShellyExtHumidity(rh);
+            }
         }
         if (ds.voltmeter100 != null) {
-            status.extVoltage = new ShellyExtVoltage(ds.voltmeter100.voltage);
+            Double voltage = ds.voltmeter100.voltage;
+            if (voltage != null) {
+                status.extVoltage = new ShellyExtVoltage(voltage);
+            }
         }
         if (ds.input100 != null) {
             if (ds.input100.state != null) {
@@ -1141,7 +1175,8 @@ public class Shelly2ApiClient extends ShellyHttpClient implements ShellyDiscover
     private @Nullable ShellyShortTemp updateExtTempSensor(@Nullable Shelly2DeviceStatusTempId value) {
         if (value != null) {
             ShellyShortTemp temp = new ShellyShortTemp();
-            temp.hwID = value.id != null ? value.id.toString() : "999";
+            Integer idBox = value.id;
+            temp.hwID = idBox != null ? idBox.toString() : "999";
             temp.tC = getDouble(value.tC);
             temp.tF = getDouble(value.tF);
             return temp;

@@ -111,6 +111,7 @@ See section [Discovery](#discovery) for details.
 | shellyplussmoke      | Shelly Plus Smoke sensor                                 | SNSN-0031Z                                                                |
 | shellypluswdus       | Shelly Plus Wall Dimmer US                               | SNDM-0013US                                                               |
 | shellyplusdimmer     | Shelly Plus Dimmer Gen 3                                 | S3DM-0A101WWL                                                             |
+| shellyprodm2pm       | Shelly Pro Dimmer 2PM                                    | SPDM-002PE01EU                                                            |
 | shellyplusrgbwpm     | Shelly Plus RGBW PM                                      | SNDC-0D4P10WW                                                             |
 | shellywalldisplay    | Shelly Plus Wall Display                                 | SAWD-0A1XX10EU1                                                           |
 | shellyblugw          | Shelly BLU Gateway                                       | SNGW-BT01                                                                 |
@@ -529,6 +530,7 @@ Depending on the device type and firmware release channels might be not availabl
 |         | temperature2 | Number  | yes       | Temperature value of external sensor #2 (if connected to temp/hum addon)          |
 |         | temperature3 | Number  | yes       | Temperature value of external sensor #3 (if connected to temp/hum addon)          |
 |         | humidity     | Number  | yes       | Humidity in percent (if connected to temp/hum addon)                              |
+|         | lastUpdate   | DateTime | yes      | Timestamp of the last sensor update (heartbeat)                                   |
 |         | input1       | Contact | yes       | Status of the reed contact (OPEN/CLOSE), only with external switch add-on         |
 
 ### Shelly 1L (thing-type: shelly1l)
@@ -554,6 +556,7 @@ Depending on the device type and firmware release channels might be not availabl
 |         | temperature2 | Number   | yes       | Temperature value of external sensor #2 (if connected to temp/hum addon)          |
 |         | temperature3 | Number   | yes       | Temperature value of external sensor #3 (if connected to temp/hum addon)          |
 |         | humidity     | Number   | yes       | Humidity in percent (if connected to temp/hum addon)                              |
+|         | lastUpdate   | DateTime | yes       | Timestamp of the last sensor update (heartbeat)                                   |
 |         | input1       | Contact  | yes       | Status of the reed contact (OPEN/CLOSE), only with external switch add-on         |
 
 `Note:`
@@ -579,6 +582,7 @@ In this case the is no real measurement based on power consumption, but the Shel
 |         | temperature2 | Number   | yes       | Temperature value of external sensor #2 (if connected to temp/hum addon)        |
 |         | temperature3 | Number   | yes       | Temperature value of external sensor #3 (if connected to temp/hum addon)        |
 |         | humidity     | Number   | yes       | Humidity in percent (if connected to temp/hum addon)                            |
+|         | lastUpdate   | DateTime | yes       | Timestamp of the last sensor update (heartbeat)                                 |
 |         | input1       | Contact  | yes       | Status of the reed contact (OPEN/CLOSE), only with external switch add-on       |
 
 ### Shelly EM (thing-type: shellyem)
@@ -814,6 +818,7 @@ Channels lastEvent and eventCount are only available if input type is set to mom
 |         | temperature2 | Number  | yes       | Temperature value of external sensor #2 (if connected to temp/hum addon) |
 |         | temperature3 | Number  | yes       | Temperature value of external sensor #3 (if connected to temp/hum addon) |
 |         | humidity     | Number  | yes       | Humidity in percent (if connected to temp/hum addon)                     |
+|         | lastUpdate   | DateTime | yes      | Timestamp of the last sensor update (heartbeat)                          |
 |         | voltage      | Number  | yes       | ADCS voltage                                                             |
 | status  | input1       | Switch  | yes       | State of Input 1                                                         |
 |         | input2       | Switch  | yes       | State of Input 2                                                         |
@@ -1185,6 +1190,7 @@ If the Shelly Add-On is installed:
 |         | voltage      | Number | yes       | Measured voltage                                          |
 |         | analogInput  | Number | yes       | Percentage of reference voltage (VREF) at analogous input |
 |         | digitalInput | Switch | yes       | State of digital input (ON/OFF)                           |
+|         | lastUpdate   | DateTime | yes     | Timestamp of the last sensor update (heartbeat)           |
 
 ### Shelly Plus 1PM (thing-type: shellyplus1pm)
 
@@ -1215,6 +1221,7 @@ If the Shelly Add-On is installed:
 |         | voltage      | Number | yes       | Measured voltage                                          |
 |         | analogInput  | Number | yes       | Percentage of reference voltage (VREF) at analogous input |
 |         | digitalInput | Switch | yes       | State of digital input (ON/OFF)                           |
+|         | lastUpdate   | DateTime | yes     | Timestamp of the last sensor update (heartbeat)           |
 
 ### Shelly Plus 2PM - relay mode (thing-type: shellyplus2pm-relay)
 

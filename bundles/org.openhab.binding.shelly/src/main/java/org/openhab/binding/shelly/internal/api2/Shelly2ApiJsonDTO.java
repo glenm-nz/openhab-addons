@@ -526,6 +526,9 @@ public class Shelly2ApiJsonDTO {
             @SerializedName("light:0")
             public Shelly2GetConfigLight light0;
 
+            @SerializedName("light:1")
+            public Shelly2GetConfigLight light1;
+
             @SerializedName("rgbw:0")
             public Shelly2GetConfigLight rgbw0;
 
@@ -650,8 +653,8 @@ public class Shelly2ApiJsonDTO {
             }
 
             public class Shelly2DeviceStatusHumidity {
-                public Integer id;
-                public Double rh;
+                public @Nullable Integer id;
+                public @Nullable Double rh;
             }
 
             public class Shelly2DeviceStatusIlluminance {
@@ -661,12 +664,12 @@ public class Shelly2ApiJsonDTO {
             }
 
             public class Shelly2DeviceStatusVoltage {
-                public Integer id;
-                public Double voltage;
+                public @Nullable Integer id;
+                public @Nullable Double voltage;
             }
 
             public class Shelly2DeviceStatusTempId extends Shelly2DeviceStatusTemp {
-                public Integer id;
+                public @Nullable Integer id;
             }
 
             public static class Shelly2DeviceStatusPower {
@@ -826,6 +829,9 @@ public class Shelly2ApiJsonDTO {
 
             @SerializedName("light:0")
             public Shelly2DeviceStatusLight light0;
+
+            @SerializedName("light:1")
+            public Shelly2DeviceStatusLight light1;
 
             @SerializedName("temperature:0")
             public Shelly2DeviceStatusTempId temperature0;
