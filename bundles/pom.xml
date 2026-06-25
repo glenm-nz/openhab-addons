@@ -181,6 +181,7 @@
     <module>org.openhab.binding.ftpupload</module>
     <module>org.openhab.binding.gardena</module>
     <module>org.openhab.binding.gce</module>
+    <module>org.openhab.binding.gemini</module>
     <module>org.openhab.binding.generacmobilelink</module>
     <module>org.openhab.binding.goecharger</module>
     <module>org.openhab.binding.govee</module>
@@ -205,6 +206,7 @@
     <module>org.openhab.binding.herzborg</module>
     <module>org.openhab.binding.homeassistant</module>
     <module>org.openhab.binding.homeconnect</module>
+    <module>org.openhab.binding.homeconnectdirect</module>
     <module>org.openhab.binding.homekit</module>
     <module>org.openhab.binding.homie</module>
     <module>org.openhab.binding.homematic</module>

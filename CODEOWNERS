@@ -144,6 +144,7 @@
 /bundles/org.openhab.binding.ftpupload/ @paulianttila
 /bundles/org.openhab.binding.gardena/ @gerrieg @andrewfg
 /bundles/org.openhab.binding.gce/ @clinique
+/bundles/org.openhab.binding.gemini/ @florian-h05
 /bundles/org.openhab.binding.generacmobilelink/ @digitaldan
 /bundles/org.openhab.binding.globalcache/ @mhilbush
 /bundles/org.openhab.binding.goecharger/ @SamuelBrucksch
@@ -168,6 +169,7 @@
 /bundles/org.openhab.binding.herzborg/ @Sonic-Amiga
 /bundles/org.openhab.binding.homeassistant/ @ccutrer
 /bundles/org.openhab.binding.homeconnect/ @bruestel
+/bundles/org.openhab.binding.homeconnectdirect/ @bruestel
 /bundles/org.openhab.binding.homekit/ @andrewfg
 /bundles/org.openhab.binding.homie/ @ccutrer
 /bundles/org.openhab.binding.homematic/ @FStolte @gerrieg @mdicke2s
