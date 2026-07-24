@@ -81,6 +81,7 @@
 /bundles/org.openhab.binding.dali/ @rs22
 /bundles/org.openhab.binding.danfossairunit/ @pravussum
 /bundles/org.openhab.binding.dbquery/ @lujop
+/bundles/org.openhab.binding.ddwrt/ @ballle98
 /bundles/org.openhab.binding.deconz/ @J-N-K
 /bundles/org.openhab.binding.denonmarantz/ @jwveldhuis
 /bundles/org.openhab.binding.deutschebahn/ @soenkekueper
@@ -311,6 +312,7 @@
 /bundles/org.openhab.binding.orvibo/ @tavalin
 /bundles/org.openhab.binding.panasonicbdp/ @mlobstein
 /bundles/org.openhab.binding.paradoxalarm/ @theater
+/bundles/org.openhab.binding.peblar/ @Hilbrand
 /bundles/org.openhab.binding.pegelonline/ @weymann
 /bundles/org.openhab.binding.pentair/ @jsjames
 /bundles/org.openhab.binding.phc/ @gnlpfjh
@@ -474,6 +476,7 @@
 /bundles/org.openhab.io.metrics/ @pravussum
 /bundles/org.openhab.io.neeo/ @morph166955
 /bundles/org.openhab.io.openhabcloud/ @kaikreuzer
+/bundles/org.openhab.io.opentelemetry/ @florian-h05
 /bundles/org.openhab.io.yamlcomposer/ @jimtng
 /bundles/org.openhab.persistence.dynamodb/ @ssalonen
 /bundles/org.openhab.persistence.influxdb/ @lujop

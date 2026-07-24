@@ -10,18 +10,17 @@
  *
  * SPDX-License-Identifier: EPL-2.0
  */
-package org.openhab.binding.epsonprojector.internal.enums;
+package org.openhab.binding.ddwrt.internal;
 
 import org.eclipse.jdt.annotation.NonNullByDefault;
 
 /**
- * Valid values for Epson switch commands.
+ * Configuration for a DD-WRT firewall rule thing.
  *
- * @author Pauli Anttila - Initial contribution
- * @author Yannick Schaus - Refactoring
+ * @author Lee Ballard - Initial contribution
  */
 @NonNullByDefault
-public enum Switch {
-    ON,
-    OFF
+public class DDWRTFirewallRuleConfiguration {
+
+    public String ruleId = "";
 }
